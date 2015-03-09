@@ -1,0 +1,149 @@
+
+
+search your search engines!  
+
+1.  Power Intro!
+	slide 1.
+		-  This is the dawn of the information age.   Information explosion!
+		-  We are capturing data at rates never before seen,  and it's not slowing down.   Think the internet of things,  more things,  more data.  
+	slide 2
+		-  Kryder's law vs Moores' Law
+			  ( summary )
+	slide 3
+		-  Data is only valuable if we do something with it.
+		-  How are we going to search it?  What if we need to find the information we need to build knowledge.  How do we do this?  We search!
+
+2.  Talk Intro	
+	slide 1.
+		-  start your search engines!
+		-  talk summary
+				-  why search?
+				-  search tools
+				-  indexing
+				-  querying
+				-  relevance
+				-  elasticsearch
+				-  conclusion!
+3.  search tools
+	slide 1.
+		-  a brief survey of all the open source search tools that exists.
+			-  Lucene history,   nutch and all that other crap.
+			-  search servers,  elasticsearch and Solr.
+4.  elastic search intro
+	-  download and start cluster.
+	-  es as document store.  
+5.  indexing
+	-  anatomy of an inverted index.    
+		-  "you can only find terms that exist in the inverted index", correction,  you should only find terms that exist in the inverted index.  
+	-  indexing flow
+			-  gather data,  analyse data and extract terms,  index data.  
+	-  full text analysis
+		-  tokenizers and token filters. (white space analyzer,  lowercase,  simple example.)
+		-  the standard analyzer  (remove special characters)
+		-  stop words  (pro's cons on page 380).  
+			-  advantage,  performance,  "the quick brown fox",  queries for each term,  and computes the relevancy for each term.  
+			-  usually,  low frequency terms provide most search value,  high frequency terms contribute little to relevance.
+			-  what about removing stop words that actually have meaning....  "
+			-  consider using cutoff_frequency or minimum_should_match,  you get automatically tuning of stop words,  think of a sports specific search engine and the term "ball".  
+			page # 388.  
+		-  ngram analyzer.
+			- think search as type speed!
+			- be careful,  term bloat big time.  
+		-  shingles.
+			-  could be valuable for phrase searching,  though not required per se.  
+			-  could be used to increase relevancy.
+		(begin synonym section)
+		- synonyms
+			-  expand,  or contract.
+			-  consider the analysis chain.  
+		-  word stemming   #371
+			-  there is many.  in-exact science.  
+			-  algorithmic stemming!
+				-  fast,  use concrete rules such stripping "ing".  Miss on unusual words,  consider ""
+				-  snowball,  porter stemmer.
+				-  output might mutate the word,  but it doesn't matter,  as long as applying the stemmer on the search query produces a token that can be used to retrieve it.
+			-  dictonary stemming.  
+				-  big,  hard to handle,  usually lean toward algorithmic.  
+		-  phonetic analyzer   #  416
+			-  language analyzers,  dialects,  etc.
+		(end synonym section)
+		(fuzziness)
+		-  fuzziness
+			- levenshtein distance,  number of single character substitutions required to transform one word into another.  
+				-  80% of spelling mistakes can be corrected with a single edit to the original string.
+				-  levenshtein automaton.  
+		-  Lemmatisation
+			-  searching by meaning!
+		(end fuzziness)
+		-  goelocation 1-
+	-  indexing conclusion
+
+6.  Indexing in elasticsearch!
+	-  index mappings
+		-  field mappings,  what is default behavior with no mapping.
+		-  simple mapping example,  with not analyzed,  standard,  etc.
+		-  custom mappings with ngrams.  
+		-  testing analyzers
+7.  querying
+	-  querying overview 
+		-  full-text queries vs exact match queries. 
+		-  query parsing 
+
+8.  querying in elasticsearch.  
+		Queries
+			-  match queries
+			-  multi-field queries.
+			-  _all field. 
+			-  bool queries 
+			-  multi-field mapping 
+			-  dis_max queries  (page #224)
+			-  phrase queries  (page #246)
+				-  ?  how does scoring work with phrase querying?
+				-  a bit more expensive than indexing shingles.  
+			-  wild card and regex queries.
+				-  these operate on the term lists in the inverted index.  they work,  but they can be resource intensive.  should be used sparingly.  
+		Filters
+			-  filters vs "queries".
+			-  filters are "structured",  and work on exact values.  no analysis.  these means they are fast,  and are easily cached.  Use as often as you can.
+			-  term filter.  compare with sql example.  term filter is a "must contain",  not a must equal.  
+			-  filtered queries.    i want to run my full text query on a subset of the documents.  
+				-  internally elasticsearch has a bitset of the documents matching the filters,  and that bitset is cached.  this is consulted,  and the query is used to skip documents that match
+				the queries.  
+			-  bool filter	(can be nested,  for arbitrarily complex boolean logic.)
+			-  range filter
+6.  relevance
+	-  lucene scoring revealed  (a measure of likeness between the query and the document.)
+			a positive floating point number.  higher score,  more likeness. 
+	-  TF/IDF Explained  (Lucene Default scoring?)  page #280 
+		-  Term Frequency
+		-  Inverse Document Frequency
+		-  Field lenght norm.  
+		     - /\  those are calculated at index time for terms.  
+		-  vector space analysis. 
+	-  customizing scoring.
+		-  boosting queries,  constant queries,  etc.
+		-  function scoring.  
+	-  boosting
+		-  query time vs index time.  
+	-  elastic search relevance in production!  distributed frequencies search type :(.
+	-  relevance conclusion.
+			-  soo  much out there,  i cant even begin to cover it all.  
+			-  avoid relevance soup.  be very precise and always validate.  
+
+	-  custom scoring in elasticsearch
+7.  Elasticsearch
+	-  distributed nature.
+		-  shards,  replicas.  
+		- local term frequencies,   search type.
+8.  search interfaces
+	-  type as you go auto-complete.
+	-  facets
+		-  use facets for things like date/time search.
+	-  term high lighting.  (can flex!).
+9.  search on other platforms.
+	-  sqlite on Android / iOS!
+	-  porting Lucene to Android?
+10.  conclusion
+11.  thanks and questions! 
+
+
