@@ -1,0 +1,21 @@
+
+
+//put/delete index
+curl -X PUT -d @tweet-index.json http://localhost:9200/tweets/
+curl -X DELETE http://localhost:9200/tweets/
+
+//test analyzer
+curl -X GET http://localhost:9200/tweets/_analyze?pretty=true^&analyzer=ngram-tokenizer -d 'sample'
+curl -X GET http://localhost:9200/tweets/_analyze?pretty=true^&analyzer=lowercase-keyword -d 'sample'
+
+//put document
+curl -X PUT -d @tweet.json http://localhost:9200/tweets/tweet/123 
+//get document
+curl -X GET http://localhost:9200/tweets/tweet/123?pretty=true
+//delete document
+curl -X DELETE http://localhost:9200/tweets/tweet/123
+
+
+//search tweets
+curl -X POST http://localhost:9200/tweets/_search?q=text:hudl^&pretty=true
+
