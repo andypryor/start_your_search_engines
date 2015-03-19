@@ -1,0 +1,26 @@
+{
+    "settings": {
+        "analysis": {
+            "analyzer" : {
+                "my_analyzer" : {
+                    "type" : "snowball",
+                    "language" : "English"
+                }
+            }
+        }
+    },
+    "mappings": {
+        "tweet": {
+            "properties": {
+				"id": {
+				   "index": "not_analyzed", 
+                   "type": "string"
+				},
+                "text": {
+                    "type": "string",
+					"analyzer", "snowball"
+                }
+            }
+        }
+    }
+}

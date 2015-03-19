@@ -1,0 +1,27 @@
+{
+    "settings": {
+        "analysis": {
+            "analyzer": {
+               "whitespace-lowercase":{
+                    "type":"custom",
+                    "tokenizer":"whitespace",
+                    "filter":[ "lowercase"]
+                }
+            }
+        }
+    },
+    "mappings": {
+        "tweet": {
+            "properties": {
+				"id": {
+				   "index": "not_analyzed", 
+                   "type": "string"
+				},
+                "text": {
+                    "type": "string",
+                    "analyzer" : "whitespace-lowercase"
+                }
+            }
+        }
+    }
+}

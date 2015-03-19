@@ -1,0 +1,27 @@
+{
+    "settings": {
+        "analysis": {
+            "analyzer": {
+               "standard-lowercase":{
+                    "type":"custom",
+                    "tokenizer":"standard",
+                    "filter":[ "lowercase"]
+                }
+            }
+        }
+    },
+    "mappings": {
+        "tweet": {
+            "properties": {
+				"id": {
+				   "index": "not_analyzed", 
+                   "type": "string"
+				},
+                "text": {
+                    "type": "string",
+                    "analyzer" : "standard-lowercase"
+                }
+            }
+        }
+    }
+}

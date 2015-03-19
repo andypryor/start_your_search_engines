@@ -1,0 +1,40 @@
+{
+    "settings": {
+        "analysis": {
+            "analyzer": {
+                "ngram-tokenizer":{
+                    "type":"custom",
+                    "tokenizer":"whitespace",
+                    "filter":[ "lowercase", "ngram-filter" ]
+                },
+               "lowercase-keyword":{
+                    "type":"custom",
+                    "tokenizer":"standard",
+                    "filter":[ "lowercase"]
+                }
+            },
+            "filter":{
+                "ngram-filter":{
+                    "type":"ngram",
+                    "min_gram":1,
+                    "max_gram":200
+                }
+            }
+        }
+    },
+    "mappings": {
+        "tweet": {
+            "properties": {
+				"id": {
+				   "index": "not_analyzed", 
+                   "type": "string"
+				},
+                "text": {
+                    "type": "string",
+                    "search_analyzer" : "lowercase-keyword",
+                    "index_analyzer" : "ngram-tokenizer"
+                }
+            }
+        }
+    }
+}

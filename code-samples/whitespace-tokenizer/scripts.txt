@@ -2,7 +2,6 @@
 
 //put/delete index
 curl -X PUT -d @tweet-index.json http://localhost:9200/tweets/
-curl -X DELETE http://localhost:9200/tweets/
 
 //test analyzer
 curl -X GET http://localhost:9200/tweets/_analyze?pretty=true^&analyzer=ngram-tokenizer -d 'sample'
