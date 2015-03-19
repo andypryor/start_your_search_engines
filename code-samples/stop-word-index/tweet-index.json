@@ -5,7 +5,13 @@
                "standard-lowercase":{
                     "type":"custom",
                     "tokenizer":"standard",
-                    "filter":[ "lowercase"]
+                    "filter":[ "lowercase", "stop"]
+                }
+            },
+			"filter": {
+                "my_stop": {
+                    "type":       "stop",
+                    "stopwords": ["and", "is", "the"]
                 }
             }
         }
